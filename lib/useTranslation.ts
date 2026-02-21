@@ -14,7 +14,7 @@ export function useTranslation() {
   };
 
   // Memoize t function to prevent unnecessary re-renders
-  const translationHelper = useMemo(() => ({ t, language, setLanguage }), [language, setLanguage]);
+  const translationHelper = useMemo(() => ({ t, language, setLanguage }), [t, language, setLanguage]);
 
   return translationHelper;
 }

@@ -92,7 +92,7 @@ export default function FinalRoomPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col text-sm antialiased bg-black text-white overflow-hidden">
+    <div className="h-screen flex flex-col text-sm antialiased bg-zinc-950 text-white overflow-hidden">
       {/* Parallel Workflow Header */}
       <EditorHeader
         projectName="Cyberpunk City Tour v.04"
@@ -108,7 +108,7 @@ export default function FinalRoomPage() {
               <Settings className="w-4 h-4 text-white/80" />
             </button>
             <div className="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden cursor-pointer">
-              <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500"></div>
+              <div className="w-full h-full bg-zinc-800 from-purple-500 to-pink-500"></div>
             </div>
           </div>
         }
@@ -118,27 +118,27 @@ export default function FinalRoomPage() {
       <main className="w-full h-full pt-16 flex flex-col">
         <div className="flex-1 flex relative">
           {/* Video Player Area */}
-          <div className="flex-1 flex items-center justify-center bg-black p-8 relative group">
+          <div className="flex-1 flex items-center justify-center bg-zinc-950 p-8 relative group">
             <div className="relative w-full max-w-5xl aspect-video overflow-hidden rounded-sm shadow-[0_0_50px_rgba(0,0,0,0.8)] video-player">
-              <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+              <div className="w-full h-full bg-zinc-800 from-gray-900 to-black flex items-center justify-center">
                 <div className="text-center">
                   <div className="text-white/30 text-lg mb-2">Video Preview</div>
                   <div className="text-white/50 text-sm">Cyberpunk City Tour</div>
                 </div>
               </div>
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
-                <button className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-all hover:scale-105">
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-zinc-950/10">
+                <button className="w-16 h-16 rounded-full bg-zinc-700 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-all hover:scale-105">
                   <Play className="w-8 h-8 text-white ml-1" />
                 </button>
               </div>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1 bg-black/40 backdrop-blur-md rounded-full text-xs font-mono text-white/90 border border-white/5">
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1 bg-zinc-950/40 backdrop-blur-md rounded-full text-xs font-mono text-white/90 border border-zinc-800">
                 00:12:04 / 00:45:00
               </div>
             </div>
           </div>
 
           {/* Configuration Panel */}
-          <div className="w-80 border-l border-white/5 bg-black h-full flex flex-col z-20 config-panel">
+          <div className="w-80 border-l border-zinc-800 bg-zinc-950 h-full flex flex-col z-20 config-panel">
             <div className="p-6">
               <h2 className="text-xs font-medium text-white/40 uppercase tracking-widest mb-8">Configuration</h2>
 
@@ -160,9 +160,9 @@ export default function FinalRoomPage() {
                 </button>
                 {voiceoverExpanded && (
                   <div className="pl-8 space-y-4">
-                    <div className="flex items-center justify-between bg-zinc-900/50 p-3 rounded hover:bg-zinc-900 transition-colors cursor-pointer border border-white/5 hover:border-white/10">
+                    <div className="flex items-center justify-between bg-zinc-900/50 p-3 rounded hover:bg-zinc-900 transition-colors cursor-pointer border border-zinc-800 hover:border-white/10">
                       <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-300 text-[10px] font-bold">A</div>
+                        <div className="w-6 h-6 rounded-full bg-white text-black/20 flex items-center justify-center text-indigo-300 text-[10px] font-bold">A</div>
                         <div className="flex flex-col">
                           <span className="text-sm text-white/90">Adam (Deep)</span>
                           <span className="text-[10px] text-white/40">Narrative</span>
@@ -208,9 +208,9 @@ export default function FinalRoomPage() {
                 </button>
                 {musicExpanded && (
                   <div className="pl-8 space-y-4">
-                    <div className="flex items-center justify-between bg-zinc-900/50 p-3 rounded hover:bg-zinc-900 transition-colors cursor-pointer border border-white/5 hover:border-white/10">
+                    <div className="flex items-center justify-between bg-zinc-900/50 p-3 rounded hover:bg-zinc-900 transition-colors cursor-pointer border border-zinc-800 hover:border-white/10">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500/70 to-pink-500/70 rounded opacity-70"></div>
+                        <div className="w-8 h-8 bg-zinc-800 from-purple-500/70 to-pink-500/70 rounded opacity-70"></div>
                         <div className="flex flex-col">
                           <span className="text-sm text-white/90">Neon Dreams</span>
                           <span className="text-[10px] text-white/40">Synthwave • 120BPM</span>
@@ -244,13 +244,13 @@ export default function FinalRoomPage() {
                   </div>
                 </div>
                 <div className="pl-8 flex gap-2">
-                  <button className="px-3 py-1.5 rounded border border-white/20 text-xs text-white bg-white/10">
+                  <button className="px-3 py-1.5 rounded border border-white/20 text-xs text-white bg-zinc-700">
                     16:9
                   </button>
-                  <button className="px-3 py-1.5 rounded border border-white/5 text-xs text-white/40 hover:text-white hover:border-white/20 transition-all">
+                  <button className="px-3 py-1.5 rounded border border-zinc-800 text-xs text-white/40 hover:text-white hover:border-white/20 transition-all">
                     9:16
                   </button>
-                  <button className="px-3 py-1.5 rounded border border-white/5 text-xs text-white/40 hover:text-white hover:border-white/20 transition-all">
+                  <button className="px-3 py-1.5 rounded border border-zinc-800 text-xs text-white/40 hover:text-white hover:border-white/20 transition-all">
                     1:1
                   </button>
                 </div>
@@ -260,8 +260,8 @@ export default function FinalRoomPage() {
         </div>
 
         {/* Timeline Section */}
-        <div className="h-[220px] bg-black border-t border-white/5 relative z-10 flex flex-col">
-          <div className="h-10 border-b border-white/5 flex items-center justify-between px-6 bg-black/50">
+        <div className="h-[220px] bg-zinc-950 border-t border-zinc-800 relative z-10 flex flex-col">
+          <div className="h-10 border-b border-zinc-800 flex items-center justify-between px-6 bg-zinc-950/50">
             <div className="flex items-center space-x-6">
               <button className="text-white/40 hover:text-white transition-colors">
                 <Undo className="w-4 h-4" />
@@ -269,7 +269,7 @@ export default function FinalRoomPage() {
               <button className="text-white/40 hover:text-white transition-colors">
                 <Redo className="w-4 h-4" />
               </button>
-              <div className="w-[1px] h-4 bg-white/10"></div>
+              <div className="w-[1px] h-4 bg-zinc-700"></div>
               <button className="text-white/40 hover:text-white transition-colors">
                 <Scissors className="w-4 h-4" />
               </button>
@@ -290,7 +290,7 @@ export default function FinalRoomPage() {
             </div>
           </div>
 
-          <div className="flex-1 relative overflow-x-auto overflow-y-hidden px-6 pt-8 pb-4 bg-black">
+          <div className="flex-1 relative overflow-x-auto overflow-y-hidden px-6 pt-8 pb-4 bg-zinc-950">
             {/* Playhead Indicator */}
             <div className="absolute top-0 bottom-0 left-[30%] w-[1px] bg-red-500 z-30 pointer-events-none">
               <div className="absolute top-0 -left-[5px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-red-500"></div>
@@ -303,12 +303,12 @@ export default function FinalRoomPage() {
                   key={take.id}
                   className={`h-full ${take.width} relative group cursor-pointer ${take.rounded} timeline-clip`}
                 >
-                  <div className={`w-full h-full bg-gradient-to-br ${take.gradient} ${take.rounded} opacity-60 group-hover:opacity-100 transition-opacity ${take.active ? '' : 'grayscale group-hover:grayscale-0'}`}></div>
+                  <div className={`w-full h-full bg-zinc-800 ${take.gradient} ${take.rounded} opacity-60 group-hover:opacity-100 transition-opacity ${take.active ? '' : 'grayscale group-hover:grayscale-0'}`}></div>
                   <div className={`absolute inset-0 border ${take.active ? 'border-white' : 'border-transparent'} transition-colors ${take.rounded} clip-border`}></div>
                   {take.active && (
                     <>
                       <div className="absolute inset-0 bg-white/5"></div>
-                      <div className="absolute top-0 left-0 w-full h-[2px] bg-indigo-500"></div>
+                      <div className="absolute top-0 left-0 w-full h-[2px] bg-white text-black"></div>
                     </>
                   )}
                   {/* Star icon for starred takes */}

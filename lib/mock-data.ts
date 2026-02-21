@@ -1,4 +1,4 @@
-import { Project } from '../store/types';
+import { Project, Take } from '../store/types';
 
 // Helper function to generate a unique ID
 const generateId = () => `id_${Math.random().toString(36).substr(2, 9)}`;
@@ -49,7 +49,7 @@ const createTake = (type: 'image' | 'video', url: string, isStarred: boolean, da
 });
 
 // Create a scene object
-const createScene = (order: number, voiceover: string, visualPrompt: string, duration: number, takes: any[]) => ({
+const createScene = (order: number, voiceover: string, visualPrompt: string, duration: number, takes: Take[]) => ({
   id: generateId(),
   order,
   voiceover,
@@ -287,8 +287,8 @@ export const initializeEnhancedProjects = (setProjects: (projects: Project[]) =>
 };
 
 // Backward compatibility (optional)
-export const mockProjects: any[] = [];
-export const initializeMockData = (setProjects: (projects: any[]) => void) => {
+export const mockProjects: Project[] = [];
+export const initializeMockData = (setProjects: (projects: Project[]) => void) => {
   console.warn('initializeMockData is deprecated, use initializeEnhancedProjects instead');
   initializeEnhancedProjects(setProjects as (projects: Project[]) => void);
 };

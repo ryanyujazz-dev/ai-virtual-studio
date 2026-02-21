@@ -43,7 +43,7 @@ export default function DashboardPage() {
   }, [enhancedProjects, filter]);
 
   return (
-    <div className="w-full h-full min-h-screen bg-black text-white">
+    <div className="w-full h-full min-h-screen bg-zinc-950 text-white">
       <Header />
 
       <main className="w-full h-full pt-32 pb-12 px-12">
