@@ -18,44 +18,101 @@ import {
   ZoomOut,
   ZoomIn,
   Play,
-  CheckCircle
+  CheckCircle,
+  Star
 } from 'lucide-react';
+import { EditorHeader } from '../../../../components/editor/EditorHeader';
+
+// Mock数据：模拟来源于Step2炼丹后被用户星标(Starred)的Takes
+const MOCK_STARRED_TAKES = [
+  {
+    id: 'take-star-1',
+    label: 'Take 02 (星标)',
+    width: 'w-64',
+    rounded: 'rounded-l-sm',
+    active: true,
+    description: '来自Scene 01的星标Take',
+    duration: '4s',
+    starred: true,
+    gradient: 'from-yellow-900/50 to-orange-900/50'
+  },
+  {
+    id: 'take-star-2',
+    label: 'Take 03 (星标)',
+    width: 'w-56',
+    rounded: '',
+    active: false,
+    description: '来自Scene 02的星标Take',
+    duration: '3s',
+    starred: true,
+    gradient: 'from-yellow-800/50 to-amber-900/50'
+  },
+  {
+    id: 'take-star-3',
+    label: 'Take 05 (星标)',
+    width: 'w-48',
+    rounded: '',
+    active: false,
+    description: '来自Scene 03的星标Take',
+    duration: '5s',
+    starred: true,
+    gradient: 'from-orange-900/50 to-red-900/50'
+  },
+  {
+    id: 'take-star-4',
+    label: 'Take 08 (星标)',
+    width: 'w-40',
+    rounded: '',
+    active: false,
+    description: '来自Scene 04的星标Take',
+    duration: '2s',
+    starred: true,
+    gradient: 'from-amber-900/50 to-yellow-800/50'
+  },
+  {
+    id: 'take-star-5',
+    label: 'Take 12 (星标)',
+    width: 'w-56',
+    rounded: 'rounded-r-sm',
+    active: false,
+    description: '来自Outro的星标Take',
+    duration: '4s',
+    starred: true,
+    gradient: 'from-yellow-900/50 to-orange-800/50'
+  }
+];
 
 export default function FinalRoomPage() {
   const router = useRouter();
   const [voiceoverExpanded, setVoiceoverExpanded] = useState(true);
   const [musicExpanded, setMusicExpanded] = useState(true);
 
+  const handleBack = () => {
+    router.push('../step2'); // 返回Step2页面
+  };
+
   return (
     <div className="h-screen flex flex-col text-sm antialiased bg-black text-white overflow-hidden">
-      {/* Header */}
-      <header className="h-16 flex items-center justify-between px-8 z-50 fixed top-0 w-full bg-black/80 backdrop-blur-sm border-b border-white/5">
-        <div className="flex items-center space-x-6">
-          <button
-            onClick={() => router.push('../step2')}
-            className="flex items-center text-white/50 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <div className="h-4 w-[1px] bg-white/10"></div>
-          <h1 className="font-normal text-sm tracking-wide text-white">
-            Cyberpunk City Tour <span className="text-white/30 ml-2 font-light">v.04</span>
-          </h1>
-        </div>
-
-        <div className="flex items-center space-x-8">
-          <div className="flex items-center space-x-1 text-white/40 text-xs font-mono">
-            <CheckCircle className="w-4 h-4 animate-pulse text-green-500" />
-            <span>Saved</span>
+      {/* Parallel Workflow Header */}
+      <EditorHeader
+        projectName="Cyberpunk City Tour v.04"
+        showSaveButton={false}
+        onBack={handleBack}
+        rightContent={
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-1 text-white/40 text-xs font-mono">
+              <CheckCircle className="w-4 h-4 animate-pulse text-green-500" />
+              <span>Saved</span>
+            </div>
+            <button className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 transition-colors">
+              <Settings className="w-4 h-4 text-white/80" />
+            </button>
+            <div className="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden cursor-pointer">
+              <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500"></div>
+            </div>
           </div>
-          <button className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 transition-colors">
-            <Settings className="w-4 h-4 text-white/80" />
-          </button>
-          <div className="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden cursor-pointer">
-            <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500"></div>
-          </div>
-        </div>
-      </header>
+        }
+      />
 
       {/* Main Content */}
       <main className="w-full h-full pt-16 flex flex-col">
@@ -239,29 +296,29 @@ export default function FinalRoomPage() {
               <div className="absolute top-0 -left-[5px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-red-500"></div>
             </div>
 
-            {/* Timeline Clips */}
+            {/* Timeline Clips - 这些数据模拟来源于Step2炼丹后被用户星标(Starred)的Takes */}
             <div className="flex items-center space-x-1 h-24 relative">
-              {[
-                { label: 'Scene 01', width: 'w-48', rounded: 'rounded-l-sm' },
-                { label: 'Scene 02 (Focus)', width: 'w-64', rounded: '', active: true },
-                { label: 'Scene 03', width: 'w-40', rounded: '' },
-                { label: 'Scene 04', width: 'w-56', rounded: '' },
-                { label: 'Outro', width: 'w-48', rounded: 'rounded-r-sm' }
-              ].map((scene, index) => (
+              {MOCK_STARRED_TAKES.map((take) => (
                 <div
-                  key={index}
-                  className={`h-full ${scene.width} relative group cursor-pointer ${scene.rounded} timeline-clip`}
+                  key={take.id}
+                  className={`h-full ${take.width} relative group cursor-pointer ${take.rounded} timeline-clip`}
                 >
-                  <div className={`w-full h-full bg-gradient-to-br ${scene.active ? 'from-blue-900/50 to-purple-900/50' : 'from-gray-900/50 to-gray-800/50'} ${scene.rounded} opacity-60 group-hover:opacity-100 transition-opacity ${scene.active ? '' : 'grayscale group-hover:grayscale-0'}`}></div>
-                  <div className={`absolute inset-0 border ${scene.active ? 'border-white' : 'border-transparent'} transition-colors ${scene.rounded} clip-border`}></div>
-                  {scene.active && (
+                  <div className={`w-full h-full bg-gradient-to-br ${take.gradient} ${take.rounded} opacity-60 group-hover:opacity-100 transition-opacity ${take.active ? '' : 'grayscale group-hover:grayscale-0'}`}></div>
+                  <div className={`absolute inset-0 border ${take.active ? 'border-white' : 'border-transparent'} transition-colors ${take.rounded} clip-border`}></div>
+                  {take.active && (
                     <>
                       <div className="absolute inset-0 bg-white/5"></div>
                       <div className="absolute top-0 left-0 w-full h-[2px] bg-indigo-500"></div>
                     </>
                   )}
+                  {/* Star icon for starred takes */}
+                  {take.starred && (
+                    <div className="absolute top-2 right-2">
+                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 drop-shadow-md" />
+                    </div>
+                  )}
                   <span className="absolute bottom-2 left-2 text-[10px] font-mono text-white drop-shadow-md">
-                    {scene.label}
+                    {take.label}
                   </span>
                 </div>
               ))}

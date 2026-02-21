@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useProjectStore } from '../../../../store/projectStore';
 import { useTranslation } from '../../../../lib/useTranslation';
 import { ArrowLeft, Save, Image as ImageIcon, List, Grid, RefreshCcw, Sparkles } from 'lucide-react';
+import { EditorHeader } from '../../../../components/editor/EditorHeader';
 
 // Mock scene datasets for AI regeneration
 const MOCK_SCENES_SET_A = [
@@ -81,6 +82,14 @@ export default function ScriptRoomPage() {
   const { t } = useTranslation();
   const { enhancedProjects, createEnhancedProject } = useProjectStore();
 
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/'); // 回退到首页
+    }
+  };
+
   const currentProject = enhancedProjects[0];
 
   const [displayedScenes, setDisplayedScenes] = useState(() => {
@@ -146,13 +155,6 @@ export default function ScriptRoomPage() {
     return () => clearInterval(interval);
   }, [isRegenerating, currentSceneSet]);
 
-  const handleBack = () => {
-    if (typeof window !== 'undefined' && window.history.length > 1) {
-      router.back();
-    } else {
-      router.push('/'); // 回退到首页
-    }
-  };
 
   const handleRegenerate = () => {
     setIsRegenerating(true);
@@ -161,49 +163,12 @@ export default function ScriptRoomPage() {
 
   return (
     <div className="min-h-screen w-full bg-zinc-950 flex flex-col text-white">
-      {/* Top Navigation Bar */}
-      <header className="w-full h-16 border-b border-zinc-800 px-6 flex items-center justify-between">
-        <div className="flex items-center justify-between w-full">
-          {/* Left: Back arrow */}
-          <button
-            onClick={handleBack}
-            className="p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-zinc-300" />
-          </button>
-
-          {/* Center: Step indicator */}
-          <div className="flex items-center space-x-6">
-            <span className="text-white text-lg font-medium">文案</span>
-            <button
-              onClick={() => router.push('../step2')}
-              className="text-zinc-500 text-lg hover:text-white transition-colors"
-            >
-              画面
-            </button>
-            <button
-              onClick={() => router.push('../step3')}
-              className="text-zinc-500 text-lg hover:text-white transition-colors"
-            >
-              生成
-            </button>
-          </div>
-
-          {/* Right: Project name, save, next button */}
-          <div className="flex items-center space-x-6">
-            <span className="text-zinc-300">项目：{currentProject?.name || '赛博朋克城市'}</span>
-            <button className="p-2 hover:bg-zinc-800 rounded-lg transition-colors">
-              <Save className="w-5 h-5 text-zinc-300" />
-            </button>
-            <button
-              onClick={() => router.push('../step2')}
-              className="bg-white text-black font-medium px-6 py-2 rounded-lg hover:bg-zinc-100 transition-colors"
-            >
-              下一步
-            </button>
-          </div>
-        </div>
-      </header>
+      {/* Top Navigation Bar - Parallel Workflow Header */}
+      <EditorHeader
+        projectName={currentProject?.name || '赛博朋克城市'}
+        showSaveButton={true}
+        onBack={handleBack}
+      />
 
       {/* Main Content Area - Split Layout */}
       <div className="flex flex-1 overflow-hidden">

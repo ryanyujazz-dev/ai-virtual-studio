@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Star, Play, ImageIcon, Video, Settings, History, Download, Maximize2, Brush, Film, Info, Clock, Lock, Plus, Sparkles } from 'lucide-react';
+import { ArrowLeft, Star, Play, ImageIcon, Video, Settings, History, Download, Maximize2, Brush, Film, Info, Clock, Lock, Plus, Sparkles, Menu } from 'lucide-react';
+import { EditorHeader } from '../../../../components/editor/EditorHeader';
 
 // Mock data for scenes
 const MOCK_SCENES = [
@@ -76,6 +77,10 @@ export default function SceneLabPage() {
   const [cameraMovement, setCameraMovement] = useState('pan_right');
   const [prompt, setPrompt] = useState('Neon-lit futuristic city streets, rainy night, cyberpunk style, high contrast, cinematic lighting, 8k resolution, photorealistic...');
 
+  const handleBack = () => {
+    router.push('/dashboard'); // 返回项目管理页
+  };
+
   const handleSceneSelect = (id: string) => {
     setScenes(scenes.map(scene => ({
       ...scene,
@@ -104,61 +109,40 @@ export default function SceneLabPage() {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-black text-white selection:bg-blue-500 selection:text-white">
-      {/* Glass Header */}
-      <header className="h-14 glass-header flex items-center justify-between px-6 z-50 relative shrink-0">
-        <div className="flex items-center gap-5">
-          {/* Back button */}
-          <button
-            onClick={() => router.push('/dashboard')}
-            className="flex items-center gap-2 text-[var(--text-secondary)] cursor-pointer hover:text-white transition-colors group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="text-[13px] font-medium tracking-wide">Projects</span>
-          </button>
-          <div className="w-px h-4 bg-[var(--border-glass)]"></div>
-          {/* Project info */}
-          <div className="flex items-center gap-3">
-            <h1 className="text-[13px] font-semibold text-[var(--text-main)] truncate max-w-[200px] tracking-wide">Cyberpunk 2077 Promo</h1>
-            <span className="px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 text-[10px] border border-yellow-500/20 font-medium">Draft</span>
+      {/* Parallel Workflow Header */}
+      <EditorHeader
+        projectName="Cyberpunk 2077 Promo"
+        showSaveButton={false}
+        onBack={handleBack}
+        rightContent={
+          <div className="flex items-center gap-4">
+            <button className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/10 transition-colors">
+              <Settings className="w-4 h-4 text-[var(--text-secondary)]" />
+            </button>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 border border-white/10 shadow-inner"></div>
           </div>
-        </div>
-
-        {/* Step indicator */}
-        <nav className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center bg-black/20 rounded-full p-1 border border-white/5 backdrop-blur-md">
-          <button
-            onClick={() => router.push('../step1')}
-            className="px-5 py-1.5 rounded-full text-[13px] font-medium text-[var(--text-secondary)] hover:text-white transition-all"
-          >
-            Script
-          </button>
-          <button className="px-5 py-1.5 rounded-full text-[13px] font-medium bg-[rgba(255,255,255,0.15)] text-white shadow-sm border border-white/10 backdrop-blur-sm">Scene Lab</button>
-          <button
-            onClick={() => router.push('../step3')}
-            className="px-5 py-1.5 rounded-full text-[13px] font-medium text-[var(--text-secondary)] hover:text-white transition-all"
-          >
-            Final
-          </button>
-        </nav>
-
-        {/* Right side icons */}
-        <div className="flex items-center gap-4">
-          <button className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/10 transition-colors">
-            <Settings className="w-4 h-4 text-[var(--text-secondary)]" />
-          </button>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 border border-white/10 shadow-inner"></div>
-        </div>
-      </header>
+        }
+      />
 
       {/* Main content area */}
       <div className="flex-1 flex overflow-hidden w-full">
         {/* Left Sidebar - Scene navigation */}
         <aside className="w-[280px] h-full flex flex-col glass-sidebar z-20 shrink-0">
           <div className="h-12 px-4 border-b border-[var(--border-glass)] flex justify-between items-center bg-white/5">
-            <h2 className="text-[13px] font-semibold text-[var(--text-secondary)] tracking-wide">SCENES</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-[13px] font-semibold text-[var(--text-secondary)] tracking-wide">分镜列表</h2>
+              <button
+                className="p-1 hover:bg-white/10 rounded transition-colors"
+                title="切换场景"
+                aria-label="切换场景"
+              >
+                <Menu className="w-4 h-4 text-[var(--text-dim)] hover:text-[var(--text-secondary)]" />
+              </button>
+            </div>
             <span className="text-[10px] text-[var(--text-dim)] font-medium bg-white/5 px-2 py-0.5 rounded">16:9</span>
           </div>
           <div className="flex-1 overflow-y-auto p-3 space-y-4">
-            {scenes.map(scene => (
+            {scenes.map((scene, index) => (
               <div
                 key={scene.id}
                 className={`group relative ${scene.selected ? 'bg-white/10 active-scene-border shadow-lg ring-1 ring-blue-500/50' : 'rounded-xl border border-transparent hover:bg-white/5'} rounded-xl p-3 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]`}
@@ -166,7 +150,7 @@ export default function SceneLabPage() {
               >
                 <div className="flex justify-between items-center mb-2.5">
                   <span className={`text-[11px] ${scene.selected ? 'font-bold text-blue-400' : 'font-medium text-[var(--text-dim)] group-hover:text-[var(--text-secondary)]'}`}>
-                    {scene.title}
+                    分镜 {(index + 1).toString().padStart(2, '0')}
                   </span>
                   <span className={`text-[10px] ${scene.selected ? 'text-[var(--text-secondary)]' : 'text-[var(--text-dim)]'} font-medium`}>
                     {scene.duration}
