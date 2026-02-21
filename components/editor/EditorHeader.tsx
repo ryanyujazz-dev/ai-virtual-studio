@@ -3,7 +3,7 @@
 import React from 'react';
 import { ArrowLeft, Save } from 'lucide-react';
 import { EditorTabNavigation } from './EditorTabNavigation';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface EditorHeaderProps {
   projectName?: string;
@@ -18,16 +18,6 @@ export function EditorHeader({
   rightContent,
   onBack
 }: EditorHeaderProps) {
-  const router = useRouter();
-
-  const handleBack = () => {
-    if (onBack) {
-      onBack();
-    } else {
-      // 直接跳转到大厅，避免在 Tab 历史记录中无限后退
-      router.push('/dashboard');
-    }
-  };
 
   const defaultRightContent = (
     <div className="flex items-center space-x-4">
@@ -44,13 +34,13 @@ export function EditorHeader({
     <header className="w-full h-16 border-b border-zinc-800 px-6 flex items-center justify-between bg-zinc-950">
       {/* 左侧：返回按钮和项目信息 */}
       <div className="flex items-center space-x-4">
-        <button
-          onClick={handleBack}
-          className="p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+        <Link
+          href="/dashboard"
           title="返回大厅"
+          className="p-2 hover:bg-zinc-800 rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-zinc-300" />
-        </button>
+        </Link>
         <div className="h-4 w-px bg-zinc-700"></div>
         <span className="text-zinc-300">项目：{projectName}</span>
       </div>
