@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useProjectStore } from '../../../../store/projectStore';
 import { useTranslation } from '../../../../lib/useTranslation';
 import { ArrowLeft, Save, Image as ImageIcon, List, Grid, RefreshCcw, Sparkles } from 'lucide-react';
@@ -79,8 +79,37 @@ function Skeleton({ className = '' }: { className?: string }) {
 
 export default function ScriptRoomPage() {
   const router = useRouter();
+  const params = useParams();
+  const projectId = params.id as string;
   const { t } = useTranslation();
-  const { enhancedProjects, createEnhancedProject } = useProjectStore();
+  const { enhancedProjects, createEnhancedProject, getEnhancedProject } = useProjectStore();
+
+  const currentProject = getEnhancedProject(projectId);
+
+  const [displayedScenes, setDisplayedScenes] = useState(() => {
+    const projectScenes = currentProject?.script?.scenes || currentProject?.scenes || [];
+    return projectScenes.length > 0 ? projectScenes : MOCK_SCENES_SET_A;
+  });
+
+  // Update displayed scenes when currentProject changes
+  useEffect(() => {
+    if (currentProject) {
+      const projectScenes = currentProject.script?.scenes || currentProject.scenes || [];
+      if (projectScenes.length > 0) {
+        setDisplayedScenes(projectScenes);
+      }
+    }
+  }, [currentProject]);
+
+  // Create a new project if none exists
+  useEffect(() => {
+    if (enhancedProjects.length === 0) {
+      const newProject = createEnhancedProject('新项目', '16:9');
+      // After creating project, we would ideally redirect to the new project URL
+      // For now, we'll update displayed scenes with mock data
+      setDisplayedScenes(MOCK_SCENES_SET_A);
+    }
+  }, [enhancedProjects, createEnhancedProject]);
 
   const handleBack = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
@@ -89,20 +118,6 @@ export default function ScriptRoomPage() {
       router.push('/'); // 回退到首页
     }
   };
-
-  const currentProject = enhancedProjects[0];
-
-  const [displayedScenes, setDisplayedScenes] = useState(() => {
-    const projectScenes = currentProject?.script?.scenes || currentProject?.scenes || [];
-    return projectScenes.length > 0 ? projectScenes : MOCK_SCENES_SET_A;
-  });
-
-  // Create a new project if none exists
-  useEffect(() => {
-    if (enhancedProjects.length === 0) {
-      createEnhancedProject('新项目', '16:9');
-    }
-  }, [enhancedProjects, createEnhancedProject]);
 
   // Total scenes and duration based on displayed scenes
   const totalScenes = displayedScenes.length;
@@ -186,7 +201,7 @@ export default function ScriptRoomPage() {
           <div className="mb-8">
             <label className="block text-sm font-medium text-zinc-300 mb-2">风格模板</label>
             <div className="relative">
-              <select className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 appearance-none">
+              <select className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 appearance-none">
                 <option>电影纪录片</option>
                 <option>科技宣传片</option>
                 <option>品牌广告片</option>
@@ -209,7 +224,7 @@ export default function ScriptRoomPage() {
               </button>
             </div>
             <textarea
-              className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 resize-none"
+              className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 resize-none"
               rows={6}
               placeholder="请输入视频的核心描述，例如：展示未来城市中人工智能与人类和谐共生的场景..."
               value={corePrompt}
@@ -238,10 +253,10 @@ export default function ScriptRoomPage() {
                   max="100"
                   value={rhythmValue}
                   onChange={(e) => setRhythmValue(parseInt(e.target.value))}
-                  className="w-full h-2 bg-zinc-800 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-blue-500"
+                  className="w-full h-2 bg-zinc-800 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white"
                 />
                 <div className="absolute top-0 left-0 right-0 h-2 bg-zinc-800 rounded-full -z-10"></div>
-                <div className="absolute top-0 left-0 h-2 bg-blue-500 rounded-full -z-10" style={{ width: `${rhythmValue}%` }}></div>
+                <div className="absolute top-0 left-0 h-2 bg-white rounded-full -z-10" style={{ width: `${rhythmValue}%` }}></div>
               </div>
             </div>
 
@@ -261,10 +276,10 @@ export default function ScriptRoomPage() {
                   max="100"
                   value={moodValue}
                   onChange={(e) => setMoodValue(parseInt(e.target.value))}
-                  className="w-full h-2 bg-zinc-800 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-purple-500"
+                  className="w-full h-2 bg-zinc-800 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white"
                 />
                 <div className="absolute top-0 left-0 right-0 h-2 bg-zinc-800 rounded-full -z-10"></div>
-                <div className="absolute top-0 left-0 h-2 bg-purple-500 rounded-full -z-10" style={{ width: `${moodValue}%` }}></div>
+                <div className="absolute top-0 left-0 h-2 bg-white rounded-full -z-10" style={{ width: `${moodValue}%` }}></div>
               </div>
             </div>
           </div>
