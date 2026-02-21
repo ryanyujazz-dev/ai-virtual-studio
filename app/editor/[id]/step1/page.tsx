@@ -175,8 +175,18 @@ export default function ScriptRoomPage() {
           {/* Center: Step indicator */}
           <div className="flex items-center space-x-6">
             <span className="text-white text-lg font-medium">文案</span>
-            <span className="text-zinc-500 text-lg">画面</span>
-            <span className="text-zinc-500 text-lg">生成</span>
+            <button
+              onClick={() => router.push('../step2')}
+              className="text-zinc-500 text-lg hover:text-white transition-colors"
+            >
+              画面
+            </button>
+            <button
+              onClick={() => router.push('../step3')}
+              className="text-zinc-500 text-lg hover:text-white transition-colors"
+            >
+              生成
+            </button>
           </div>
 
           {/* Right: Project name, save, next button */}
@@ -185,7 +195,10 @@ export default function ScriptRoomPage() {
             <button className="p-2 hover:bg-zinc-800 rounded-lg transition-colors">
               <Save className="w-5 h-5 text-zinc-300" />
             </button>
-            <button className="bg-white text-black font-medium px-6 py-2 rounded-lg hover:bg-zinc-100 transition-colors">
+            <button
+              onClick={() => router.push('../step2')}
+              className="bg-white text-black font-medium px-6 py-2 rounded-lg hover:bg-zinc-100 transition-colors"
+            >
               下一步
             </button>
           </div>
