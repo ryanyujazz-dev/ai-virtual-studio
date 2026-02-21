@@ -10,7 +10,7 @@ export default function Header() {
 
   const navItems = [
     { key: 'projects' as const, id: 'nav-projects', path: '/dashboard' },
-    { key: 'templates' as const, id: 'nav-templates', path: '#' },
+    { key: 'templates' as const, id: 'nav-templates', path: '/templates' },
     { key: 'assets' as const, id: 'nav-assets', path: '#' },
     { key: 'settings' as const, id: 'nav-settings', path: '/settings' },
   ];
