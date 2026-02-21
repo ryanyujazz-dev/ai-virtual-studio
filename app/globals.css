@@ -168,3 +168,60 @@ select {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Step 3 specific styles from prototype */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -4px;
+  left: 50%;
+  background-color: white;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.video-player {
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.timeline-clip:hover .clip-border {
+  border-color: rgba(255,255,255,0.8);
+}
+
+.config-panel {
+  backdrop-filter: blur(10px);
+}
+
+/* Custom range slider for step3 */
+input[type="range"].step3-slider {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type="range"].step3-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -3px;
+}
+
+input[type="range"].step3-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  border-radius: 1px;
+}
+
