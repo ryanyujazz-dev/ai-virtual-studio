@@ -2,7 +2,7 @@
 
 import { Language } from '../../store/languageStore';
 import { useTranslation } from '../../lib/useTranslation';
-import { ChevronRight, ArrowBack } from '@mui/icons-material';
+import { ChevronRight, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import Header from '../../components/dashboard/Header';
@@ -17,7 +17,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="w-full h-full min-h-screen bg-black text-white">
+    <div className="w-full h-full min-h-screen bg-zinc-950 text-white">
       <Header />
 
       <main className="max-w-2xl mx-auto pt-32 pb-12 px-12">
@@ -31,7 +31,7 @@ export default function SettingsPage() {
             onClick={() => router.back()}
             className="flex items-center text-white/50 hover:text-white transition-colors group"
           >
-            <ArrowBack className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm font-light">{t('settings.back')}</span>
           </button>
         </motion.div>

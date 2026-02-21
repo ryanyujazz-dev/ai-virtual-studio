@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { PlayCircle } from '@mui/icons-material';
+import { Play } from 'lucide-react';
 import { useTranslation } from '../../lib/useTranslation';
 import { useRouter } from 'next/navigation';
 import { Project } from '../../store/types';
@@ -77,7 +77,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         {!hasSelectedTakes && sceneCount > 0 ? (
           <>
             {/* Rendering state */}
-            <div className="w-full h-full bg-gradient-to-br from-purple-900/30 to-blue-900/30 flex items-center justify-center">
+            <div className="w-full h-full bg-gradient-to-br from-zinc-900/30 to-zinc-800/30 flex items-center justify-center">
               <div className="w-16 h-16 border-[2px] border-white/20 border-t-white rounded-full animate-spin mb-3" />
               <span className="text-xs font-mono text-white/80 uppercase tracking-widest">
                 {t('status.rendering')} 0%
@@ -96,7 +96,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
             <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <PlayCircle className="text-white text-[28px]" />
+              <Play className="text-white text-[28px]" />
             </div>
           </>
         )}

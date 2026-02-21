@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Add } from '@mui/icons-material';
+import { Plus } from 'lucide-react';
 
 interface FABProps {
   onClick: () => void;
@@ -25,7 +25,7 @@ export default function FAB({ onClick }: FABProps) {
           whileHover={{ rotate: 90 }}
           transition={{ duration: 0.3 }}
         >
-          <Add className="text-[32px]" />
+          <Plus className="text-[32px]" />
         </motion.span>
       </motion.button>
     </div>

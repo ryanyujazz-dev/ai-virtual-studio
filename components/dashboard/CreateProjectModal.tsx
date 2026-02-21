@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Close } from '@mui/icons-material';
+import { X } from 'lucide-react';
 import { useProjectStore } from '../../store/projectStore';
 import { useTranslation } from '../../lib/useTranslation';
 import { ProjectRatio } from '../../store/types';
@@ -56,7 +56,7 @@ export default function CreateProjectModal({ isOpen, onClose }: CreateProjectMod
                   onClick={onClose}
                   className="text-white/50 hover:text-white transition-colors"
                 >
-                  <Close />
+                  <X />
                 </button>
               </div>
 

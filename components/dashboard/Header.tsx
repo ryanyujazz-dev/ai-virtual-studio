@@ -1,7 +1,6 @@
 'use client';
 
-import { Search, NotificationsNone, Person } from '@mui/icons-material';
-import { MovieFilter } from '@mui/icons-material';
+import { Search, Bell, User, Film } from 'lucide-react';
 import { useTranslation } from '../../lib/useTranslation';
 import { usePathname } from 'next/navigation';
 
@@ -20,7 +19,7 @@ export default function Header() {
     <header className="fixed top-0 w-full z-50 h-24 flex items-center justify-between px-12 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none" suppressHydrationWarning>
       <div className="pointer-events-auto flex items-center">
         <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mr-4">
-          <MovieFilter className="text-black text-[18px]" />
+          <Film className="text-black text-[18px]" />
         </div>
         <h1 className="font-light text-xl tracking-tight text-white/90">{t('app.name')}</h1>
       </div>
@@ -53,7 +52,7 @@ export default function Header() {
           <Search className="font-light text-[22px]" />
         </button>
         <button className="text-white/50 hover:text-white transition-colors relative">
-          <NotificationsNone className="font-light text-[22px]" />
+          <Bell className="font-light text-[22px]" />
           <span className="absolute top-1 right-0.5 w-1.5 h-1.5 bg-white rounded-full"></span>
         </button>
         <div className="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden ml-2 cursor-pointer hover:ring-1 hover:ring-white/50 transition-all">

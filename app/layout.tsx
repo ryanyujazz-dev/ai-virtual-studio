@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang={initialLanguage} className="dark">
-      <body className={`${inter.variable} font-sans antialiased bg-black text-white`}>
+      <body className={`${inter.variable} font-sans antialiased bg-zinc-950 text-white`}>
         <LanguageProviderWrapper initialLanguage={initialLanguage}>
           {children}
         </LanguageProviderWrapper>
