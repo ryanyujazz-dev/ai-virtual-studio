@@ -1,7 +1,5 @@
 'use client';
 
-import { EditorNavigation } from "../../../components/editor/EditorNavigation";
-
 export default function EditorLayout({
   children,
   params: _params,
@@ -10,14 +8,8 @@ export default function EditorLayout({
   params: Promise<{ id: string }>;
 }) {
   return (
-    <div className="flex h-screen bg-black">
-      {/* Navigation */}
-      <EditorNavigation />
-
-      {/* Main Content */}
-      <div className="flex-1 flex">
-        {children}
-      </div>
+    <div className="min-h-screen w-full bg-zinc-950">
+      {children}
     </div>
   );
 }

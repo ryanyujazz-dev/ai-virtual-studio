@@ -91,29 +91,58 @@ export function AIPlanningSidebar() {
   };
 
   const generateSkeleton = () => (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Skeleton template cards */}
       {[1, 2, 3].map(i => (
-        <div key={i} className="bg-white/5 rounded-lg p-4 animate-pulse">
-          <div className="h-4 bg-white/20 rounded w-3/4 mb-2"></div>
-          <div className="h-3 bg-white/10 rounded w-full"></div>
-        </div>
+        <motion.div
+          key={i}
+          className="bg-gradient-to-br from-white/5 to-white/3 border border-white/10 rounded-2xl p-5 animate-pulse"
+        >
+          <div className="flex items-start space-x-4">
+            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl flex-shrink-0" />
+            <div className="flex-1">
+              <div className="h-5 bg-white/20 rounded w-3/4 mb-2"></div>
+              <div className="h-3 bg-white/10 rounded w-full"></div>
+              <div className="flex flex-wrap gap-1.5 mt-3">
+                <div className="h-6 w-16 bg-white/10 rounded-full"></div>
+                <div className="h-6 w-20 bg-white/10 rounded-full"></div>
+                <div className="h-6 w-16 bg-white/10 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       ))}
     </div>
   );
 
   return (
-    <aside className="w-80 bg-black/50 backdrop-blur-sm border-r border-white/10 p-6 h-full overflow-y-auto">
-      <div className="space-y-6">
+    <aside className="w-80 bg-gradient-to-b from-purple-900/20 to-black/50 backdrop-blur-xl border-r border-white/10 h-full overflow-y-auto relative">
+      {/* Gradient background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 -z-10" />
+
+      <div className="space-y-8 p-6">
         {/* Header */}
-        <div className="flex items-center space-x-3">
-          <Sparkles className="w-6 h-6 text-purple-400" />
-          <h2 className="text-xl font-semibold text-white">{t('ai.planning')}</h2>
-        </div>
+        <motion.div
+          className="flex items-center space-x-3"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-20" />
+            <Sparkles className="w-6 h-6 text-purple-400 relative z-10" />
+          </div>
+          <h2 className="text-xl font-bold text-white tracking-tight">{t('ai.planning')}</h2>
+        </motion.div>
 
         {/* Templates Section */}
-        <div>
-          <h3 className="text-sm font-medium text-white/60 mb-3">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <h3 className="text-sm font-semibold text-white/50 mb-4 flex items-center">
+            <div className="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full mr-2" />
             {t('ai.templates')}
           </h3>
 
@@ -140,23 +169,30 @@ export function AIPlanningSidebar() {
                 {templates.map((template) => (
                   <motion.div
                     key={template.id}
-                    className={`bg-white/5 rounded-lg p-4 cursor-pointer transition-all hover:bg-white/10 ${
-                      selectedTemplate === template.id ? 'ring-2 ring-purple-400/50' : ''
+                    className={`bg-gradient-to-br from-white/5 to-white/3 border border-white/10 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:from-white/8 hover:to-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-purple-500/20 ${
+                      selectedTemplate === template.id
+                        ? 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/30 shadow-lg shadow-purple-500/20'
+                        : ''
                     }`}
                     onClick={() => handleTemplateSelect(template.id)}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="flex items-start space-x-3">
-                      <Lightbulb className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <h4 className="font-medium text-white">{template.name}</h4>
-                        <p className="text-sm text-white/60 mt-1">{template.description}</p>
-                        <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="flex items-start space-x-4">
+                      <div className="relative flex-shrink-0">
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl blur-lg opacity-0" />
+                        <div className="relative bg-gradient-to-r from-purple-600 to-pink-600 w-10 h-10 rounded-xl flex items-center justify-center">
+                          <Lightbulb className="w-5 h-5 text-white" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-white mb-1">{template.name}</h4>
+                        <p className="text-sm text-white/60 leading-relaxed">{template.description}</p>
+                        <div className="flex flex-wrap gap-1.5 mt-3">
                           {template.keywords.slice(0, 3).map((keyword) => (
                             <span
                               key={keyword}
-                              className="text-xs bg-purple-400/20 text-purple-400 px-2 py-1 rounded-full"
+                              className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full"
                             >
                               {keyword}
                             </span>
@@ -174,31 +210,49 @@ export function AIPlanningSidebar() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Keywords Input */}
-        <div>
-          <h3 className="text-sm font-medium text-white/60 mb-3">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <h3 className="text-sm font-semibold text-white/50 mb-3 flex items-center">
+            <div className="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full mr-2" />
             {t('ai.keywords')}
           </h3>
           <textarea
             value={keywords}
             onChange={(e) => setKeywords(e.target.value)}
             placeholder={t('ai.keywordsPlaceholder')}
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-transparent resize-none"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-transparent resize-none transition-all duration-200 hover:bg-white/6"
             rows={3}
             disabled={isGenerating}
           />
-        </div>
+        </motion.div>
 
         {/* Generate Button */}
         <motion.button
           onClick={handleGenerate}
           disabled={isGenerating}
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium py-3 px-6 rounded-lg hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 px-8 rounded-xl hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
+          {/* Pulsing effect */}
+          {isGenerating && (
+            <motion.div
+              className="absolute inset-0 bg-white/20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          )}
+
+          {/* Shine effect */}
+          <div className="absolute inset-0 bg-white/20 opacity-0 hover:opacity-100 transition-opacity" />
+
           {isGenerating ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -219,18 +273,28 @@ export function AIPlanningSidebar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="space-y-2"
+              className="space-y-4 mt-4"
             >
-              <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
-                <motion.div
-                  className="bg-gradient-to-r from-purple-400 to-pink-400 h-full rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.3 }}
-                />
+              <div className="relative">
+                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                  <motion.div
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full shadow-lg shadow-purple-500/30"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                  />
+                </div>
+                {/* Gradient border effect */}
+                <div className="absolute inset-0 rounded-full border border-white/20 opacity-50" />
               </div>
-              <div className="text-center text-sm text-white/60">
-                {progress}% {t('ai.generating')}
+              <div className="text-center">
+                <motion.p
+                  className="text-sm text-purple-300 font-medium"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  {progress}% {t('ai.generating')}
+                </motion.p>
               </div>
             </motion.div>
           )}
@@ -243,9 +307,12 @@ export function AIPlanningSidebar() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="bg-red-500/10 border border-red-500/30 rounded-lg p-3"
+              className="bg-gradient-to-br from-red-500/10 to-red-500/5 border border-red-500/30 rounded-xl p-4 mt-4 backdrop-blur-sm"
             >
-              <p className="text-red-400 text-sm">{error}</p>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
+                <p className="text-red-300 text-sm">{error}</p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

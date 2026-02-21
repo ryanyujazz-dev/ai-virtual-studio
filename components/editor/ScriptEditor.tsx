@@ -71,39 +71,55 @@ export function ScriptEditor() {
   };
 
   return (
-    <div className="flex-1 p-8 overflow-y-auto">
-      <div className="max-w-4xl mx-auto">
+    <div className="p-8 overflow-y-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-light text-white tracking-tight">
+        <motion.div
+          className="flex items-center justify-between mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent tracking-tight">
               {t('script.title')}
             </h1>
-            <p className="text-white/40 mt-2">{t('script.description')}</p>
+            <p className="text-white/60 mt-3 text-lg">{t('script.description')}</p>
           </div>
-          <button
+          <motion.button
             onClick={handleAddScene}
-            className="flex items-center space-x-2 bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors"
+            className="flex items-center space-x-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold px-6 py-3 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 hover:scale-105"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-5 h-5" />
             <span>{t('script.addScene')}</span>
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Scenes List */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           <AnimatePresence>
             {currentProjectData?.scenes.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-center py-20"
+                className="text-center py-32"
               >
-                <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Plus className="w-8 h-8 text-white/40" />
+                <div className="relative">
+                  {/* Decorative background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl opacity-50" />
+
+                  {/* Icon container */}
+                  <div className="relative bg-gradient-to-r from-purple-500 to-pink-500 w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg shadow-purple-500/30">
+                    <Plus className="w-12 h-12 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-xl text-white/60 mb-2">{t('script.emptyTitle')}</h3>
-                <p className="text-white/40">{t('script.emptyDescription')}</p>
+
+                <h3 className="text-2xl font-bold text-white mb-4">开始创作</h3>
+                <p className="text-white/50 max-w-md mx-auto text-lg">
+                  点击"添加场景"按钮，开始您的AI视频创作之旅
+                </p>
               </motion.div>
             ) : (
               <DndContext
@@ -115,15 +131,15 @@ export function ScriptEditor() {
                   items={currentProjectData?.scenes.map(scene => scene.id) || []}
                   strategy={verticalListSortingStrategy}
                 >
-                  <div className="space-y-4">
+                  <div className="grid grid-cols-1 gap-6">
                     {currentProjectData?.scenes.map((scene, index) => (
                       <motion.div
                         key={scene.id}
                         layout
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ delay: index * 0.05 }}
+                        exit={{ opacity: 0, y: -30 }}
+                        transition={{ delay: index * 0.1 }}
                       >
                         <SceneCard
                           scene={scene}
@@ -141,12 +157,12 @@ export function ScriptEditor() {
         {/* Next Step Button */}
         {currentProjectData?.scenes.length > 0 && (
           <motion.div
-            className="mt-8 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            className="mt-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
           >
-            <button className="flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-lg hover:bg-white/90 transition-colors mx-auto">
+            <button className="flex items-center space-x-3 bg-white text-black font-semibold px-8 py-4 rounded-xl hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 mx-auto">
               <span>{t('script.nextStep')}</span>
               <ChevronRight className="w-5 h-5" />
             </button>
