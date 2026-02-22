@@ -39,7 +39,7 @@ export function EditorTabNavigation() {
   ];
 
   return (
-    <nav className="flex space-x-12">
+    <nav className="flex gap-12 justify-center items-center">
       {tabs.map((tab) => (
         <Link
           key={tab.id}

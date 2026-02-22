@@ -31,9 +31,9 @@ export function EditorHeader({
   );
 
   return (
-    <header className="fixed top-0 w-full z-50 h-24 flex items-center justify-between px-12 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none" suppressHydrationWarning>
+    <header className="fixed top-0 w-full z-50 h-24 grid grid-cols-3 items-center px-12 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none" suppressHydrationWarning>
       {/* 左侧：返回按钮和项目信息 */}
-      <div className="pointer-events-auto flex items-center">
+      <div className="pointer-events-auto flex items-center justify-start">
         {onBack ? (
           <button
             onClick={onBack}
@@ -55,13 +55,13 @@ export function EditorHeader({
         <span className="ml-4 text-white/90 font-light">项目：{projectName}</span>
       </div>
 
-      {/* 中间：Tab导航 - 与dashboard导航交互效果一致 */}
-      <div className="pointer-events-auto">
+      {/* 中间：Tab导航 - 严格居中 */}
+      <div className="pointer-events-auto flex justify-center items-center">
         <EditorTabNavigation />
       </div>
 
       {/* 右侧：自定义内容或默认内容 */}
-      <div className="pointer-events-auto">
+      <div className="pointer-events-auto flex items-center justify-end">
         {rightContent || defaultRightContent}
       </div>
     </header>
