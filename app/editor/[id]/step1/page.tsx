@@ -6,6 +6,7 @@ import { useProjectStore } from '../../../../store/projectStore';
 import { useTranslation } from '../../../../lib/useTranslation';
 import { ArrowLeft, Save, Image as ImageIcon, List, Grid, RefreshCcw, Sparkles } from 'lucide-react';
 import { EditorHeader } from '../../../../components/editor/EditorHeader';
+import { Skeleton } from '../../../../components/common/Skeleton';
 
 // Mock scene datasets for AI regeneration
 const MOCK_SCENES_SET_A = [
@@ -70,12 +71,6 @@ const MOCK_SCENES_SET_B = [
   }
 ];
 
-// Simple Skeleton component mimicking shadcn/ui style
-function Skeleton({ className = '' }: { className?: string }) {
-  return (
-    <div className={`animate-pulse bg-zinc-800 rounded-md ${className}`} />
-  );
-}
 
 export default function ScriptRoomPage() {
   const router = useRouter();
@@ -186,7 +181,7 @@ export default function ScriptRoomPage() {
       />
 
       {/* Main Content Area - Split Layout */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden pt-24">
         {/* Left Sidebar - AI Planning (30%) */}
         <aside className="w-[30%] min-w-[320px] max-w-sm border-r border-zinc-800 p-6 overflow-y-auto">
           {/* Title Section */}

@@ -91,6 +91,43 @@ export default function FinalRoomPage() {
     router.push('../step2'); // 返回Step2页面
   };
 
+  // 导出状态
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState(0);
+  const [exportCompleted, setExportCompleted] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState<string>('');
+
+  const handleExport = () => {
+    if (isExporting) return;
+
+    setIsExporting(true);
+    setExportProgress(0);
+    setExportCompleted(false);
+    setDownloadUrl('');
+
+    // 模拟导出进度
+    const intervals = [0, 30, 65, 85, 95, 100];
+    const durations = [300, 800, 1200, 1000, 800, 500]; // 毫秒
+
+    intervals.forEach((progress, index) => {
+      setTimeout(() => {
+        setExportProgress(progress);
+        if (progress === 100) {
+          setIsExporting(false);
+          setExportCompleted(true);
+          // 使用mockVideos中的第一个视频作为下载链接
+          setDownloadUrl('https://assets.mixkit.co/videos/preview/mixkit-city-traffic-553.mp4');
+        }
+      }, durations.slice(0, index + 1).reduce((a, b) => a + b, 0));
+    });
+  };
+
+  const handleDownloadZIP = () => {
+    // 模拟ZIP下载
+    alert('ZIP下载功能需要集成JSZip库。当前为演示版本，模拟下载行为。');
+    // 在实际实现中，这里会使用JSZip打包文件
+  };
+
   return (
     <div className="h-screen flex flex-col text-sm antialiased bg-zinc-950 text-white overflow-hidden">
       {/* Parallel Workflow Header */}
@@ -338,10 +375,77 @@ export default function FinalRoomPage() {
 
       {/* Export Button */}
       <div className="fixed bottom-8 right-8 z-50">
-        <button className="bg-white text-black px-8 py-4 rounded-full font-medium tracking-wide shadow-lg hover:bg-gray-200 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-3 group">
-          <span>Export Video</span>
-          <ArrowLeft className="w-5 h-5 rotate-180 group-hover:translate-x-1 transition-transform" />
-        </button>
+        {!exportCompleted ? (
+          <button
+            onClick={handleExport}
+            disabled={isExporting}
+            className="bg-white text-black px-8 py-4 rounded-full font-medium tracking-wide shadow-lg hover:bg-gray-200 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-3 group disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {isExporting ? (
+              <>
+                <div className="w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                <span>导出中 {exportProgress}%</span>
+              </>
+            ) : (
+              <>
+                <span>导出视频</span>
+                <ArrowLeft className="w-5 h-5 rotate-180 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </button>
+        ) : (
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 shadow-xl min-w-64">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white font-medium">导出完成</h3>
+              <button
+                onClick={() => setExportCompleted(false)}
+                className="text-zinc-400 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <a
+                href={downloadUrl}
+                download="ai_video_final.mp4"
+                className="block w-full bg-white text-black text-center py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+              >
+                ↓ 下载 MP4 文件
+              </a>
+
+              <button
+                onClick={handleDownloadZIP}
+                className="w-full border border-zinc-700 text-white text-center py-3 rounded-lg font-medium hover:bg-zinc-800 transition-colors"
+              >
+                📦 下载 ZIP（含素材）
+              </button>
+
+              <p className="text-xs text-zinc-400 pt-2">
+                文件包含：视频(MP4)、音频、字幕和元数据
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* 导出进度条（独立显示） */}
+        {isExporting && (
+          <div className="mt-4 bg-zinc-900 border border-zinc-800 rounded-xl p-4 shadow-xl min-w-64">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-white text-sm">视频渲染中...</span>
+              <span className="text-zinc-400 text-sm font-mono">{exportProgress}%</span>
+            </div>
+            <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-white transition-all duration-300 ease-out"
+                style={{ width: `${exportProgress}%` }}
+              />
+            </div>
+            <p className="text-xs text-zinc-400 mt-2">
+              正在合成音轨、应用特效、编码视频...
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

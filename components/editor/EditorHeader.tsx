@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, Download } from 'lucide-react';
 import { EditorTabNavigation } from './EditorTabNavigation';
 import Link from 'next/link';
 
@@ -20,36 +20,50 @@ export function EditorHeader({
 }: EditorHeaderProps) {
 
   const defaultRightContent = (
-    <div className="flex items-center space-x-4">
-      {showSaveButton && (
-        <button className="p-2 hover:bg-zinc-800 rounded-lg transition-colors">
-          <Save className="w-5 h-5 text-zinc-300" />
-        </button>
-      )}
-      {/* 其他右侧内容 */}
+    <div className="pointer-events-auto flex items-center space-x-6">
+      <button
+        className="text-white/50 hover:text-white transition-colors p-2"
+        title="导出项目"
+      >
+        <Download className="w-5 h-5" />
+      </button>
     </div>
   );
 
   return (
-    <header className="w-full h-16 border-b border-zinc-800 px-6 flex items-center justify-between bg-zinc-950">
+    <header className="fixed top-0 w-full z-50 h-24 flex items-center justify-between px-12 bg-gradient-to-b from-black via-black/90 to-transparent pointer-events-none" suppressHydrationWarning>
       {/* 左侧：返回按钮和项目信息 */}
-      <div className="flex items-center space-x-4">
-        <Link
-          href="/dashboard"
-          title="返回大厅"
-          className="p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-zinc-300" />
-        </Link>
-        <div className="h-4 w-px bg-zinc-700"></div>
-        <span className="text-zinc-300">项目：{projectName}</span>
+      <div className="pointer-events-auto flex items-center">
+        {onBack ? (
+          <button
+            onClick={onBack}
+            title="返回"
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors mr-4"
+          >
+            <ArrowLeft className="w-5 h-5 text-white/70" />
+          </button>
+        ) : (
+          <Link
+            href="/dashboard"
+            title="返回大厅"
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors mr-4"
+          >
+            <ArrowLeft className="w-5 h-5 text-white/70" />
+          </Link>
+        )}
+        <div className="h-4 w-px bg-white/20"></div>
+        <span className="ml-4 text-white/90 font-light">项目：{projectName}</span>
       </div>
 
-      {/* 中间：Tab导航 */}
-      <EditorTabNavigation />
+      {/* 中间：Tab导航 - 与dashboard导航交互效果一致 */}
+      <div className="pointer-events-auto">
+        <EditorTabNavigation />
+      </div>
 
       {/* 右侧：自定义内容或默认内容 */}
-      {rightContent || defaultRightContent}
+      <div className="pointer-events-auto">
+        {rightContent || defaultRightContent}
+      </div>
     </header>
   );
 }

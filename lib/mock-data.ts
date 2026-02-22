@@ -14,29 +14,52 @@ const generateDate = (options: { daysAgo?: number; hoursAgo?: number } = {}): st
   return date.toISOString();
 };
 
-// Mock image URLs - using Unsplash placeholder images
+// Mock image URLs - using Unsplash placeholder images (20+ high-quality images)
 const mockImages = {
   suspense: [
-    'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80',
-    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
-    'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=80',
+    'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80', // Dark mountain
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80', // Snow mountain
+    'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=80', // Misty forest
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80', // Portrait mystery
+    'https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=800&q=80', // Dark city street
+    'https://images.unsplash.com/photo-1511497584788-876760111969?w=800&q=80', // Horror house
+    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80', // Foggy road
   ],
   wander: [
-    'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&q=80',
-    'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=800&q=80',
-    'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800&q=80',
+    'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&q=80', // Forest
+    'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=800&q=80', // Beach sunset
+    'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800&q=80', // Forest path
+    'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80', // Lake mountain
+    'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&q=80', // Mountain lake
+    'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80', // Misty mountain
+    'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80', // Autumn forest
+    'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80', // Aerial landscape
   ],
   tech: [
-    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80',
-    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
-    'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80',
+    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80', // Space
+    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80', // Data center
+    'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80', // Circuit board
+    'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&q=80', // Modern building
+    'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80', // Neon city
+    'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&q=80', // Future city
   ],
   default: [
-    'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80',
-    'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=800&q=80',
-    'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&q=80',
+    'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80', // Workspace
+    'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=800&q=80', // Light streaks
+    'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&q=80', // Cityscape
+    'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80', // Mountain
+    'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80', // Forest
   ]
 };
+
+// Mock video URLs - 5 short video clips
+const mockVideos = [
+  'https://assets.mixkit.co/videos/preview/mixkit-city-traffic-553.mp4',
+  'https://assets.mixkit.co/videos/preview/mixkit-mountain-landscape-1972.mp4',
+  'https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-circuit-1213.mp4',
+  'https://assets.mixkit.co/videos/preview/mixkit-sunset-over-a-lake-4835.mp4',
+  'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-1585.mp4',
+];
 
 // Create a take object
 const createTake = (type: 'image' | 'video', url: string, isStarred: boolean, daysAgo: number) => ({
@@ -139,7 +162,7 @@ export const enhancedProjects: Project[] = [
           7,
           [
             createTake('image', mockImages.tech[0], true, 3),
-            createTake('video', 'https://example.com/video1.mp4', false, 3),
+            createTake('video', mockVideos[2], false, 3), // Abstract technology circuit
           ]
         ),
         createScene(
@@ -224,7 +247,7 @@ export const enhancedProjects: Project[] = [
           6,
           [
             createTake('image', mockImages.tech[0], true, 5),
-            createTake('video', 'https://example.com/video2.mp4', false, 5),
+            createTake('video', mockVideos[0], false, 5), // City traffic
           ]
         ),
         createScene(
