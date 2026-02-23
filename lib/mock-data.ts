@@ -308,10 +308,3 @@ enhancedProjects.forEach(project => {
 export const initializeEnhancedProjects = (setProjects: (projects: Project[]) => void) => {
   setProjects(enhancedProjects);
 };
-
-// Backward compatibility (optional)
-export const mockProjects: Project[] = [];
-export const initializeMockData = (setProjects: (projects: Project[]) => void) => {
-  console.warn('initializeMockData is deprecated, use initializeEnhancedProjects instead');
-  initializeEnhancedProjects(setProjects as (projects: Project[]) => void);
-};

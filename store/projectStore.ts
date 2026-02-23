@@ -10,6 +10,7 @@ import type {
   MockProject
 } from './types';
 import type { AITemplate } from './types';
+import { calculateDuration } from '../lib/utils';
 
 export type FilterType = 'all' | 'drafts' | 'rendering' | 'completed';
 
@@ -41,17 +42,6 @@ interface ProjectStore {
 }
 
 const generateId = () => uuidv4();
-
-// Calculate duration based on text length
-const calculateDuration = (text: string, language: 'zh' | 'en' = 'zh'): number => {
-  if (language === 'zh') {
-    // Chinese: ~0.33s per character
-    return Math.ceil(text.length * 0.33);
-  } else {
-    // English: ~0.12s per character
-    return Math.ceil(text.length * 0.12);
-  }
-};
 
 export const useProjectStore = create<ProjectStore>()(
   persist(

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Language } from '../store/languageStore';
+import { Language, useLanguageStore } from '../store/languageStore';
 
 type LanguageContextType = {
   language: Language;
@@ -33,8 +33,8 @@ export function LanguageProviderWrapper({
         }
         // Also set cookie for server-side detection on next request
         document.cookie = `preferred-language=${lang}; path=/; max-age=${60 * 60 * 24 * 365}`; // 1 year
-      } catch (e) {
-        console.error('Failed to update language storage:', e);
+      } catch {
+        // Silently fail - localStorage might be unavailable
       }
     }
   };
@@ -56,8 +56,8 @@ export function LanguageProviderWrapper({
             document.cookie = `preferred-language=${savedLanguage}; path=/; max-age=${60 * 60 * 24 * 365}`;
           }
         }
-      } catch (e) {
-        console.error('Failed to read language from storage:', e);
+      } catch {
+        // Silently fail - localStorage might be unavailable
       }
     }
   }, [initialLanguage]);
@@ -66,10 +66,10 @@ export function LanguageProviderWrapper({
   useEffect(() => {
     if (isClient) {
       try {
-        const { setLanguage: zustandSetLanguage } = require('../store/languageStore').useLanguageStore.getState();
+        const zustandSetLanguage = useLanguageStore.getState().setLanguage;
         zustandSetLanguage(language);
-      } catch (e) {
-        console.error('Failed to sync with Zustand:', e);
+      } catch {
+        // Silently fail - Zustand store sync is optional
       }
     }
   }, [language, isClient]);

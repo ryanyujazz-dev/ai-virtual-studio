@@ -1,7 +1,6 @@
 import { useLanguageContext } from '../components/LanguageProviderWrapper';
-import { getTranslation, Translations } from './translations';
+import { getTranslation, Translations, TranslationKey } from './translations';
 import { useMemo } from 'react';
-import type { TranslationKey } from '../store/languageStore';
 
 export { useLanguageContext };
 

@@ -176,7 +176,6 @@ export default function ScriptRoomPage() {
       {/* Top Navigation Bar - Parallel Workflow Header */}
       <EditorHeader
         projectName={currentProject?.name || '赛博朋克城市'}
-        showSaveButton={true}
         onBack={handleBack}
       />
 

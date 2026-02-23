@@ -1,20 +1,18 @@
 'use client';
 
 import React from 'react';
-import { ArrowLeft, Save, Download } from 'lucide-react';
+import { ArrowLeft, Download } from 'lucide-react';
 import { EditorTabNavigation } from './EditorTabNavigation';
 import Link from 'next/link';
 
 interface EditorHeaderProps {
   projectName?: string;
-  showSaveButton?: boolean;
   rightContent?: React.ReactNode;
   onBack?: () => void;
 }
 
 export function EditorHeader({
   projectName = '未命名项目',
-  showSaveButton = true,
   rightContent,
   onBack
 }: EditorHeaderProps) {

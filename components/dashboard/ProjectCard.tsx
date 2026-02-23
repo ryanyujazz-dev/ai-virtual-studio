@@ -5,6 +5,7 @@ import { Play } from 'lucide-react';
 import { useTranslation } from '../../lib/useTranslation';
 import { useRouter } from 'next/navigation';
 import { Project } from '../../store/types';
+import { formatSecondsToDuration, formatRelativeTime } from '../../lib/utils';
 
 interface ProjectCardProps {
   project: Project;
@@ -28,11 +29,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   // Calculate total duration from scenes
   const totalDuration = project.script.scenes.reduce((total, scene) => total + scene.duration, 0);
-  const formatDuration = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
 
   const getThumbnailUrl = (): string => {
     // Use the first take of the first scene if available
@@ -50,19 +46,13 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   };
 
   const formatTime = (isoDate: string): string => {
-    const date = new Date(isoDate);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMinutes / 60);
-    const diffDays = Math.floor(diffHours / 24);
-
-    if (diffMinutes < 1) return t('time.justNow');
-    if (diffMinutes < 60) return `${diffMinutes}${t('time.minutesAgo')}`;
-    if (diffHours < 24) return `${diffHours}${t('time.hoursAgo')}`;
-    if (diffDays === 1) return t('time.yesterday');
-    if (diffDays < 7) return `${diffDays}${t('time.daysAgo')}`;
-    return date.toLocaleDateString(language === 'zh' ? 'zh-CN' : 'en-US');
+    return formatRelativeTime(isoDate, language, {
+      justNow: t('time.justNow'),
+      minutesAgo: t('time.minutesAgo'),
+      hoursAgo: t('time.hoursAgo'),
+      yesterday: t('time.yesterday'),
+      daysAgo: t('time.daysAgo'),
+    });
   };
 
   return (
@@ -108,7 +98,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             {project.name}
           </h3>
           <p className="text-white/40 text-xs font-light">
-            {formatDuration(totalDuration)} • {getStatusText()}
+            {formatSecondsToDuration(totalDuration)} • {getStatusText()}
             {project.ratio !== '16:9' && ` • ${project.ratio}`}
           </p>
         </div>

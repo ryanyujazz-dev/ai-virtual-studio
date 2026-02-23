@@ -133,7 +133,6 @@ export default function FinalRoomPage() {
       {/* Parallel Workflow Header */}
       <EditorHeader
         projectName="Cyberpunk City Tour v.04"
-        showSaveButton={false}
         onBack={handleBack}
         rightContent={
           <div className="flex items-center space-x-8">

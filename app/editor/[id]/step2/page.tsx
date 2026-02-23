@@ -96,12 +96,10 @@ export default function SceneLabPage() {
   };
 
   const handleGenerateImage = () => {
-    console.log('Generating base image with prompt:', prompt);
     // Mock generation logic
   };
 
   const handleGenerateVideo = () => {
-    console.log('Generating video take with motion:', motionIntensity, 'camera:', cameraMovement);
     // Mock generation logic
   };
 
@@ -112,12 +110,11 @@ export default function SceneLabPage() {
       {/* Parallel Workflow Header */}
       <EditorHeader
         projectName="Cyberpunk 2077 Promo"
-        showSaveButton={false}
         onBack={handleBack}
         rightContent={
           <div className="flex items-center gap-4">
             <button className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-zinc-700 transition-colors">
-              <Settings className="w-4 h-4 text-[text-zinc-400]" />
+              <Settings className="w-4 h-4 text-zinc-400" />
             </button>
             <div className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700"></div>
           </div>
@@ -128,18 +125,18 @@ export default function SceneLabPage() {
       <div className="flex-1 flex overflow-hidden w-full">
         {/* Left Sidebar - Scene navigation */}
         <aside className="w-[280px] h-full flex flex-col bg-zinc-900 border-r border-zinc-800 z-20 shrink-0">
-          <div className="h-12 px-4 border-b border-[border-zinc-800] flex justify-between items-center bg-zinc-800">
+          <div className="h-12 px-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-800">
             <div className="flex items-center gap-2">
-              <h2 className="text-[13px] font-semibold text-[text-zinc-400] tracking-wide">分镜列表</h2>
+              <h2 className="text-[13px] font-semibold text-zinc-400 tracking-wide">分镜列表</h2>
               <button
                 className="p-1 hover:bg-zinc-700 rounded transition-colors"
                 title="切换场景"
                 aria-label="切换场景"
               >
-                <Menu className="w-4 h-4 text-[text-zinc-500] hover:text-[text-zinc-400]" />
+                <Menu className="w-4 h-4 text-zinc-500 hover:text-zinc-400" />
               </button>
             </div>
-            <span className="text-[10px] text-[text-zinc-500] font-medium bg-zinc-800 px-2 py-0.5 rounded">16:9</span>
+            <span className="text-[10px] text-zinc-500 font-medium bg-zinc-800 px-2 py-0.5 rounded">16:9</span>
           </div>
           <div className="flex-1 overflow-y-auto p-3 space-y-4">
             {scenes.map((scene, index) => (
@@ -149,24 +146,24 @@ export default function SceneLabPage() {
                 onClick={() => handleSceneSelect(scene.id)}
               >
                 <div className="flex justify-between items-center mb-2.5">
-                  <span className={`text-[11px] ${scene.selected ? 'font-bold text-blue-400' : 'font-medium text-[text-zinc-500] group-hover:text-[text-zinc-400]'}`}>
+                  <span className={`text-[11px] ${scene.selected ? 'font-bold text-blue-400' : 'font-medium text-zinc-500 group-hover:text-zinc-400'}`}>
                     分镜 {(index + 1).toString().padStart(2, '0')}
                   </span>
-                  <span className={`text-[10px] ${scene.selected ? 'text-[text-zinc-400]' : 'text-[text-zinc-500]'} font-medium`}>
+                  <span className={`text-[10px] ${scene.selected ? 'text-zinc-400' : 'text-zinc-500'} font-medium`}>
                     {scene.duration}
                   </span>
                 </div>
                 <div className={`aspect-video w-full ${scene.thumbnail} rounded-lg overflow-hidden relative mb-2.5 border ${scene.selected ? 'border-zinc-700' : 'border-zinc-800'} shadow-sm flex items-center justify-center`}>
                   <ImageIcon className="w-8 h-8 text-zinc-600" />
                 </div>
-                <p className="text-[11px] text-[text-zinc-400] leading-snug line-clamp-2 font-medium">
+                <p className="text-[11px] text-zinc-400 leading-snug line-clamp-2 font-medium">
                   {scene.prompt}
                 </p>
               </div>
             ))}
           </div>
-          <div className="p-4 border-t border-[border-zinc-800]">
-            <button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-dashed border-[text-zinc-500] text-[text-zinc-400] hover:bg-zinc-800 hover:border-[text-zinc-400] hover:text-white transition-all text-[12px] font-medium">
+          <div className="p-4 border-t border-zinc-800">
+            <button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-dashed border-zinc-500 text-zinc-400 hover:bg-zinc-800 hover:border-zinc-400 hover:text-white transition-all text-[12px] font-medium">
               <Plus className="w-4 h-4" /> New Scene
             </button>
           </div>
@@ -186,14 +183,14 @@ export default function SceneLabPage() {
                     <span className="px-2 py-0.5 rounded-md bg-white text-black text-white text-[10px] font-bold tracking-wider uppercase shadow-lg shadow-zinc-800">
                       {selectedScene.title}
                     </span>
-                    <span className="text-[text-zinc-400] text-[11px] font-medium flex items-center gap-1">
+                    <span className="text-zinc-400 text-[11px] font-medium flex items-center gap-1">
                       <Clock className="w-3 h-3" /> ~{selectedScene.duration}
                     </span>
                   </div>
                   <h2 className="text-3xl font-bold text-white tracking-tight drop-shadow-md">Alchemy Lab</h2>
                 </div>
                 <div className="flex gap-2">
-                  <button className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-[text-zinc-400] hover:text-white text-[11px] font-medium rounded-lg border border-zinc-700 transition-colors flex items-center gap-1.5 backdrop-blur-sm">
+                  <button className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-zinc-400 hover:text-white text-[11px] font-medium rounded-lg border border-zinc-700 transition-colors flex items-center gap-1.5 backdrop-blur-sm">
                     <History className="w-3 h-3" /> History
                   </button>
                 </div>
@@ -230,13 +227,13 @@ export default function SceneLabPage() {
                   {/* Prompt panel */}
                   <div className="bg-zinc-900 border border-zinc-800 squircle p-5 flex flex-col gap-4">
                     <div className="flex justify-between items-center">
-                      <label className="text-[11px] font-semibold text-[text-zinc-400] uppercase tracking-widest pl-1">Prompt</label>
-                      <button className="text-[11px] text-[text-white] hover:text-zinc-300 transition-colors flex items-center gap-1 font-medium">
+                      <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-widest pl-1">Prompt</label>
+                      <button className="text-[11px] text-white hover:text-zinc-300 transition-colors flex items-center gap-1 font-medium">
                         <Sparkles className="w-3 h-3" /> Optimize
                       </button>
                     </div>
                     <textarea
-                      className="w-full bg-black/20 hover:bg-black/30 border border-zinc-700 focus:border-[text-white] focus:ring-1 focus:ring-[text-white] rounded-xl p-3 text-[13px] leading-relaxed text-white outline-none resize-none h-24 placeholder-white/20 transition-all shadow-inner font-light"
+                      className="w-full bg-black/20 hover:bg-black/30 border border-zinc-700 focus:border-white focus:ring-1 focus:ring-white rounded-xl p-3 text-[13px] leading-relaxed text-white outline-none resize-none h-24 placeholder-white/20 transition-all shadow-inner font-light"
                       placeholder="Describe the scene you imagine..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
@@ -262,8 +259,8 @@ export default function SceneLabPage() {
                     </div>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <label className="text-[12px] text-[text-zinc-400] font-medium">Motion Intensity</label>
-                        <span className="text-[12px] font-mono text-[text-white] bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">
+                        <label className="text-[12px] text-zinc-400 font-medium">Motion Intensity</label>
+                        <span className="text-[12px] font-mono text-white bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">
                           {motionIntensity}
                         </span>
                       </div>
@@ -273,18 +270,18 @@ export default function SceneLabPage() {
                         max="10"
                         value={motionIntensity}
                         onChange={(e) => setMotionIntensity(parseInt(e.target.value))}
-                        className="w-full h-1 bg-zinc-600 rounded-lg appearance-none cursor-pointer accent-[text-white]"
+                        className="w-full h-1 bg-zinc-600 rounded-lg appearance-none cursor-pointer accent-white"
                       />
-                      <div className="flex justify-between text-[10px] text-[text-zinc-500] font-medium px-1 uppercase tracking-wide">
+                      <div className="flex justify-between text-[10px] text-zinc-500 font-medium px-1 uppercase tracking-wide">
                         <span>Static</span>
                         <span>Dynamic</span>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[12px] text-[text-zinc-400] font-medium">Camera Movement</label>
+                      <label className="text-[12px] text-zinc-400 font-medium">Camera Movement</label>
                       <div className="relative">
                         <select
-                          className="w-full bg-black/20 hover:bg-black/30 border border-zinc-700 text-white text-[13px] rounded-lg focus:ring-1 focus:ring-[text-white] focus:border-[text-white] block p-2.5 appearance-none transition-colors outline-none font-light"
+                          className="w-full bg-black/20 hover:bg-black/30 border border-zinc-700 text-white text-[13px] rounded-lg focus:ring-1 focus:ring-white focus:border-white block p-2.5 appearance-none transition-colors outline-none font-light"
                           value={cameraMovement}
                           onChange={(e) => setCameraMovement(e.target.value)}
                         >
@@ -298,7 +295,7 @@ export default function SceneLabPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-[11px] text-[text-zinc-400] uppercase tracking-wider font-semibold">Seed</label>
+                        <label className="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Seed</label>
                         <input
                           type="text"
                           value="-1"
@@ -307,8 +304,8 @@ export default function SceneLabPage() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-[11px] text-[text-zinc-400] uppercase tracking-wider font-semibold">Duration</label>
-                        <div className="bg-black/20 border border-zinc-700 rounded-lg px-3 py-2 text-[12px] text-[text-zinc-500] flex justify-between items-center cursor-not-allowed">
+                        <label className="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Duration</label>
+                        <div className="bg-black/20 border border-zinc-700 rounded-lg px-3 py-2 text-[12px] text-zinc-500 flex justify-between items-center cursor-not-allowed">
                           <span>4s</span>
                           <Lock className="w-3 h-3" />
                         </div>
@@ -339,15 +336,15 @@ export default function SceneLabPage() {
 
           {/* Takes History - Bottom section */}
           <div className="h-56 w-full bg-zinc-900 border-t border-zinc-800 shrink-0 relative flex flex-col">
-            <div className="px-6 py-3 border-b border-[border-zinc-800] bg-zinc-800 flex justify-between items-center backdrop-blur-md">
+            <div className="px-6 py-3 border-b border-zinc-800 bg-zinc-800 flex justify-between items-center backdrop-blur-md">
               <div className="flex items-center gap-3">
-                <Film className="w-5 h-5 text-[text-zinc-400]" />
-                <h3 className="text-[11px] font-bold text-[text-zinc-400] uppercase tracking-widest">Takes History</h3>
+                <Film className="w-5 h-5 text-zinc-400" />
+                <h3 className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Takes History</h3>
                 <span className="bg-zinc-700 text-white text-[10px] font-medium px-2 py-0.5 rounded-full border border-zinc-800">
                   {takes.length}
                 </span>
               </div>
-              <span className="text-[10px] text-[text-zinc-500] flex items-center gap-1.5 font-medium">
+              <span className="text-[10px] text-zinc-500 flex items-center gap-1.5 font-medium">
                 <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" /> Select best take
               </span>
             </div>
@@ -358,7 +355,7 @@ export default function SceneLabPage() {
                   className="flex-shrink-0 w-52 group relative cursor-pointer"
                   onClick={() => handleTakeSelect(take.id)}
                 >
-                  <div className={`aspect-video bg-black rounded-lg overflow-hidden border-2 ${take.selected ? 'border-[text-white] shadow-[0_0_20px_rgba(236,72,153,0.2)]' : 'border-zinc-700 hover:border-zinc-500'} transition-all relative hover:scale-[1.02]`}>
+                  <div className={`aspect-video bg-black rounded-lg overflow-hidden border-2 ${take.selected ? 'border-white shadow-[0_0_20px_rgba(236,72,153,0.2)]' : 'border-zinc-700 hover:border-zinc-500'} transition-all relative hover:scale-[1.02]`}>
                     <img
                       alt={take.title}
                       className={`w-full h-full object-cover ${take.selected ? 'opacity-90' : 'opacity-60 grayscale-[30%] group-hover:opacity-80 group-hover:grayscale-0'} transition-all`}
@@ -380,18 +377,18 @@ export default function SceneLabPage() {
                     </div>
                   </div>
                   <div className="mt-2 flex justify-between items-center px-1">
-                    <span className={`text-[11px] ${take.selected ? 'text-[text-white] font-semibold' : 'text-[text-zinc-400] font-medium'} tracking-wide`}>
+                    <span className={`text-[11px] ${take.selected ? 'text-white font-semibold' : 'text-zinc-400 font-medium'} tracking-wide`}>
                       {take.title} {take.selected && '(Selected)'}
                     </span>
-                    <span className="text-[10px] text-[text-zinc-500] font-mono">{take.timestamp}</span>
+                    <span className="text-[10px] text-zinc-500 font-mono">{take.timestamp}</span>
                   </div>
                 </div>
               ))}
               {/* Spacer for scrolling */}
               <div className="flex-shrink-0 w-12 opacity-0"></div>
             </div>
-            <div className="h-6 bg-black/40 border-t border-[border-zinc-800] flex items-center justify-center backdrop-blur-sm absolute bottom-0 w-full z-10">
-              <p className="text-[9px] text-[text-zinc-500] font-medium tracking-wide">
+            <div className="h-6 bg-black/40 border-t border-zinc-800 flex items-center justify-center backdrop-blur-sm absolute bottom-0 w-full z-10">
+              <p className="text-[9px] text-zinc-500 font-medium tracking-wide">
                 Unstarred <span className="text-yellow-600/80 mx-0.5">★</span> drafts will be auto-cleaned in 24h
               </p>
             </div>

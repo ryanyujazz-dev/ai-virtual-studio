@@ -1,3 +1,5 @@
+import type { Language } from '../store/types';
+
 export type TranslationKey =
   // Header
   | 'app.name'
@@ -255,6 +257,6 @@ export const zh: Translations = {
 export const translations = { en, zh };
 export type { Translations };
 
-export function getTranslation(language: 'en' | 'zh'): Translations {
+export function getTranslation(language: Language): Translations {
   return translations[language];
 }
